@@ -1,0 +1,16 @@
+CHAPTER(el titulo del capitulo)
+SKETCH(el titulo del sketch)
+TO_RUN(Coco, atras)
+TO_EAT(Monstruo De Las Galletas, galleta)
+TO_EAT(Monstruo De Las Galletas, telefono)
+END
+AD(cuac dijo el pato)
+AD(acmec)
+SKETCH(el titulo del skecth)
+TO_RUN(Coco, adelante)
+TO_INTERVIEW(Kermit, Belinda)
+TO_CHAT(Kermit,soy el reportero intrepido)
+TO_FALL(caja, Kermit)
+TO_HOLD(Belinda, Kermit)
+END
+END

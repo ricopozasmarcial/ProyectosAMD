@@ -1,0 +1,13 @@
+CHAPTER(capitulo de prueba)
+
+  SKETCH(primer sketch)
+    FOR (for externo ) 
+        TO_CALL(Kermit, Belinda)
+        FOR (for interno) TO_FALL (caja, Kermit) END
+    END    
+  END
+  AD(compra galletas cuetara)
+  SKETCH(segundo skecth)
+    TO_CALL(Kermit, Belinda)   // actor actor
+  END
+END

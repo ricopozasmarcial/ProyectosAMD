@@ -1,0 +1,4 @@
+java JLex.Main $1.lex
+mv $1.lex.java $1.java
+javac $1.java
+rm $1.java

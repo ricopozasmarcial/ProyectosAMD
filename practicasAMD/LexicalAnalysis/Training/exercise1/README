@@ -1,0 +1,5 @@
+This directory must contain the following files:
+- README  (this file)
+- Scanner.class
+- test
+- Yylex.class, Yytoken.class

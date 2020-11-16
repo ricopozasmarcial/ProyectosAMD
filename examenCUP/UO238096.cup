@@ -1,0 +1,50 @@
+import java_cup.runtime.*;
+
+parser code {:
+        public static void main(String args[]) throws Exception {
+                new parser(new Yylex(System.in)).parse();        } // End Main
+:} // End parser code
+
+
+terminal CHAPTER, SKETCH, ITEM, ACTION, ACTOR, AD, FOR;
+terminal LP, RP, END, COMMA;
+
+non terminal chapter, sketchs, sketch, title_chapter, title_sketch;
+non terminal actions, unaction, parameters, publicity, commercial;
+
+chapter		::= title_chapter sketchs END          {: System.out.println("    PARSER:: chapter <== title_chapter sketchs END"); :}
+                ;
+
+title_chapter   ::= CHAPTER LP ITEM RP             {: System.out.println("    PARSER:: title_chapter <== CHAPTER LP ITEM RP");:} 	
+                ;
+
+sketchs 	::= sketchs sketch                     {: System.out.println("    PARSER:: sketchs <== sketchs sketch");:}
+                  | sketch sketch                  {: System.out.println("    PARSER:: sketchs <== sketch sketch");:} 
+                ;
+
+sketch          ::= title_sketch actions END publicity  {: System.out.println("    PARSER:: sketch <== title_sketch actions END publicity");:}
+                ;
+
+title_sketch    ::= SKETCH LP ITEM RP              {: System.out.println("    PARSER:: title_sketch <== SKETCK LP ITEM RP");:}
+                ;
+
+actions		::= actions unaction                   {: System.out.println("    PARSER:: actions <== actions unaction");:}				  
+                  | unaction                       {: System.out.println("    PARSER:: actions <== unaction");:}	
+				  
+                ;
+
+unaction        ::= ACTION LP parameters RP       {: System.out.println("    PARSER:: action <== ACTION LP parameters RP");:} 
+				   | FOR LP ITEM RP actions END	  {: System.out.println("    PARSER::actions <== FOR LP ITEM RP actions END");:}
+                ;
+
+parameters    	::= ACTOR COMMA ITEM               {: System.out.println("    PARSER:: parameters <== ACTOR COMMA ITEM");:} 
+                  | ITEM COMMA ACTOR               {: System.out.println("    PARSER:: parameters <== ITEM COMMA ACTOR");:} 
+                  | ACTOR COMMA ACTOR              {: System.out.println("    PARSER:: parameters <== ACTOR COMMA ACTOR");:} 
+                ;	
+
+publicity       ::= publicity commercial           {: System.out.println("    PARSER:: publicity <== publicity commercial");:} 
+                  |                                {: /* lambda */ :}
+                ;
+
+commercial      ::= AD LP ITEM RP                  {: System.out.println("    PARSER:: commercial <== AD LP ITEM RP");:} 	
+                ;

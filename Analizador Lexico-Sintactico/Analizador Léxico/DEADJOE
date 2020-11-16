@@ -1,0 +1,35 @@
+
+*** These modified files were found in JOE when it aborted on Fri Feb 19 13:58:05 2016
+*** JOE was aborted by UNIX signal 15
+
+*** File 'MiniLan.lex'
+import java.lang.System;
+class Scanner {
+   public static void main(String argv[])
+        throws java.io.IOException {
+        Yylex yy = new Yylex(System.in);
+        while (yy.yylex() != null){}
+   }
+}
+
+class Yytoken {   Yytoken () {} }
+%%
+aDIGIT=([0-9])
+%%
+;			{System.out.println("SCANNER:: found punctuation symbol SEMICOLON");}
+"+"			{System.out.println("SCANNER:: found Operator ADD");}
+begin			{System.out.println("SCANNER:: found Reserved Word BEGIN");}
+{DIGIT}    		{System.out.println("SCANNER:: found DIGIT <"+ yytext() +">");}
+(" "|\t|\n)+   		{}
+. 	     		{System.out.println("SCANNER:: Unmatched input "+ yytext());}
+
+
+
+
+*** File '(Unnamed)'
+c
+c
+test
+MiniLan.lex
+MiniLan.lex
+MiniLan.lex

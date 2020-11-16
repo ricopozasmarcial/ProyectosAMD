@@ -1,0 +1,61 @@
+// MiniLanInicialS1.cup
+// Version para inicial para el Analisis Sintactico 
+
+
+import java_cup.runtime.*;
+action code {:
+		NewHashMap table = new NewHashMap();
+:};
+parser code {:
+public static void main(String args[]) throws Exception {
+new parser(new Yylex(System.in)).parse();        } // End Main
+:} // End parser code
+
+terminal CHAPTER, SKETCH, END, AD;
+terminal COMMA, LP, RP;
+terminal ACTION, ITEM, ACTOR;
+
+non terminal chapter, title_chapter;
+non terminal sketches, sketch, title_sketch;
+non terminal actions, unaction, parameters;
+non terminal comercial, publicity; 
+
+
+
+chapter         ::= title_chapter sketches END				{: System.out.println("	SPL:: chapter <== title_chapter sketches END"); :}
+				;
+				
+title_chapter	::= CHAPTER LP ITEM RP						{: System.out.println("	SPL:: title_chapter <== CHAPTER LP ITEM RP"); :}
+				;
+				
+sketches		::= sketches sketch							{: System.out.println("	SPL:: sketches <== sketches sketch"); :}
+				| sketch sketch								{: System.out.println("	SPL:: sketches <== sketch sketch"); :}
+				;
+				
+sketch			::= title_sketch actions END publicity		{: System.out.println("	SPL:: sketch <== title_sketch actions END publicity"); :}
+				;
+				
+title_sketch	::= SKETCH LP ITEM RP						{: System.out.println("	SPL:: title_sketch  <== SKETCH LP ITEM RP"); :}
+				;
+				
+actions			::= actions unaction						{: System.out.println("	SPL:: actions <== actions unaction"); :}
+				| unaction									{: System.out.println("	SPL:: actions <== unaction"); :}
+				;
+				
+unaction		::= ACTION LP parameters RP					{: System.out.println("	SPL:: unaction <== ACTION LP parameters RP"); :}
+				;
+				
+parameters		::= ACTOR COMMA ITEM						{: System.out.println("	SPL:: parameters <== ACTOR COMMA ITEM"); :}
+				| ITEM COMMA ACTOR							{: System.out.println("	SPL:: parameters <== ITEM COMMA ACTOR"); :}
+				| ACTOR COMMA ACTOR							{: System.out.println("	SPL:: parameters <== ACTOR COMMA ACTOR"); :}
+				;
+				
+publicity		::= publicity comercial						{: System.out.println("	SPL:: publicity <== publicity comercial"); :}
+				| /* lambda */								{: System.out.println("	SPL:: publicity <== lambda"); :}
+				;
+				
+comercial		::= AD LP ITEM RP							{: System.out.println(" SPL:: commercial <== AD LP ITEM RP"); :}
+				;
+
+
+

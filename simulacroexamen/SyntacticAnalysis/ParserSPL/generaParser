@@ -1,0 +1,4 @@
+java -classpath /usr/share/java/JLex.jar:/usr/share/java/cup.jar:. JLex.Main $1.lex
+mv $1.lex.java Yylex.java
+java java_cup.Main $1.cup
+javac -d . parser.java sym.java Yylex.java

@@ -1,0 +1,22 @@
+    PARSER:: title_chapter <== CHAPTER LP ITEM RP
+    PARSER:: title_sketch <== SKETCK LP ITEM RP
+    PARSER:: parameters <== ACTOR COMMA ACTOR
+    PARSER:: action <== ACTION LP parameters RP
+    PARSER:: actions <== unaction
+    PARSER:: parameters <== ITEM COMMA ACTOR
+    PARSER:: action <== ACTION LP parameters RP
+    PARSER:: actions <== unaction
+    PARSER:: actions <== FOR LP ITEM RP actions END
+    PARSER:: actions <== actions unaction
+    PARSER:: actions <== FOR LP ITEM RP actions END
+    PARSER:: actions <== unaction
+    PARSER:: commercial <== AD LP ITEM RP
+    PARSER:: publicity <== publicity commercial
+    PARSER:: sketch <== title_sketch actions END publicity
+    PARSER:: title_sketch <== SKETCK LP ITEM RP
+    PARSER:: parameters <== ACTOR COMMA ACTOR
+    PARSER:: action <== ACTION LP parameters RP
+    PARSER:: actions <== unaction
+    PARSER:: sketch <== title_sketch actions END publicity
+    PARSER:: sketchs <== sketch sketch
+    PARSER:: chapter <== title_chapter sketchs END
