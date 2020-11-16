@@ -1,0 +1,3 @@
+begin
+print(True and False);
+end

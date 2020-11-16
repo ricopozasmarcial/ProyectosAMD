@@ -1,0 +1,13 @@
+#! /bin/sh
+
+# Script que genera un analizador lexico
+# utilizando Jlex. 
+# Para ejecutarlo escribe la siguiente orden:
+#	$ sh generateScanner [fichero_especificacion]
+
+# Ejecutamos el Jlex para generar el analizador lexico escrito en java
+java JLex.Main $1
+# Compilamos el analizador lexico escrito en java
+javac $1.java
+# Borramos el fuente generado
+rm $1.java

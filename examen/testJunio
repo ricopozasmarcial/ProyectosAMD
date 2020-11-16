@@ -1,0 +1,3 @@
+begin
+  print ( (true || not True) and true && False or false);   
+end

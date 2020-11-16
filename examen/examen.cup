@@ -1,0 +1,52 @@
+	// MiniLan.cup
+// Version para inicial para el Analisis Sintactico 
+import java_cup.runtime.*;
+
+parser code {:
+        public static void main(String args[]) throws Exception {
+                new parser(new Yylex(System.in)).parse();        } // End Main
+:} // End parser code
+
+terminal BEGIN, END, PRINT;
+terminal EOS, LP, RP;
+terminal Boolean TRUE, FALSE;
+terminal Boolean NOT, OR, AND;
+terminal COMMENT;
+
+non terminal program, instructions, instruction, sentence ;
+non terminal printSentence;
+non terminal Boolean boolExpr, boolTerm, boolOperator;
+
+program	   ::= BEGIN instructions END        	  {: System.out.println("    PARSER:: program <== BEGIN instructions END"); :}
+                   ;
+
+instructions	   ::= instructions instruction      	  {: System.out.println("    PARSER:: instructions <== instructions instruction");:} 	
+                   | instruction                  	  {: System.out.println("    PARSER:: instructions <== instruction");:} 	
+                   ;
+
+instruction        ::= sentence EOS                  	  {: System.out.println("    PARSER:: instruction <== sentence EOS");:} 
+                   | sentence EOS COMMENT
+				   ;	
+
+sentence           ::= printSentence                 	  {: System.out.println("    PARSER:: sentence <== printSentence ");:} 	
+                   ;
+				   				
+printSentence      ::= PRINT LP boolExpr:b RP	  {: System.out.println("    PARSER:: printSentence <== PRINT (boolExpr)"); :}
+	               ;
+
+boolExpr	   ::= boolExpr:a NOT boolTerm:b	  {: RESULT=(a!=b); System.out.println("    PARSER:: boolExpr <"+RESULT+"><== <"+a+"> NOT <"+b+">"); :}
+	           |boolExpr:a AND boolTerm:b	  {: RESULT=(a==b); System.out.println("    PARSER:: boolExpr <"+RESULT+"><== <"+a+"> AND <"+b+">"); :}
+	           |boolExpr:a OR  boolTerm:b	  {: RESULT=(a||b); System.out.println("    PARSER:: boolExpr <"+RESULT+"><== <"+a+"> OR <"+b+">"); :}
+	           |boolTerm:a
+	           ;
+
+boolTerm	   ::= LP boolExpr RP
+			   |   NOT boolTerm:a		 {: RESULT=(!a); System.out.println("    PARSER:: boolTerm <"+RESULT+"><== NOT <"+a+">"); :} 			
+	           |   AND boolTerm:a		 {: RESULT=(a); System.out.println("    PARSER:: boolTerm <"+RESULT+"><== AND <"+a+">"); :} 
+			   |   OR boolTerm:a		 {: RESULT=(a); System.out.println("    PARSER:: boolTerm <"+RESULT+"><== OR <"+a+">"); :} 
+			   |   boolOperator
+			   ;
+boolOperator ::= TRUE:a					 {: RESULT=(true); System.out.println("    PARSER:: boolOperator <"+RESULT+"><== <"+a+">"); :}
+				|FALSE:a					 {: RESULT=(false); System.out.println("    PARSER:: boolOperator <"+RESULT+"><== <"+a+">"); :}
+				
+				;
